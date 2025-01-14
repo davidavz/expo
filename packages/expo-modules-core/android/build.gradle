@@ -59,6 +59,15 @@ def isNewArchitectureEnabled = findProperty("newArchEnabled") == "true"
 def shouldTurnWarningsIntoErrors = findProperty("EXPO_TURN_WARNINGS_INTO_ERRORS") == "true"
 
 android {
+  buildscript {
+    repositories {
+      mavenCentral()
+    }
+    dependencies {
+      classpath "org.jetbrains.kotlin.plugin.compose:${kotlinVersion()}"
+    }
+  }
+
   if (rootProject.hasProperty("ndkPath")) {
     ndkPath rootProject.ext.ndkPath
   }
@@ -98,10 +107,6 @@ android {
     buildConfig true
     prefab true
     compose true
-  }
-
-  composeOptions {
-    kotlinCompilerExtensionVersion = "1.5.14"
   }
 
   packagingOptions {

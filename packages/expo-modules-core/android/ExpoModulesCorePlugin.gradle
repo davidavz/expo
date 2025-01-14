@@ -48,6 +48,10 @@ ext.applyKotlinExpoModulesCorePlugin = {
     apply plugin: 'kotlin-android'
   } catch (e) {}
 
+  try {
+    apply plugin: 'org.jetbrains.kotlin.plugin.compose'
+  } catch (e) {}
+
   apply plugin: KotlinExpoModulesCorePlugin
 }
 

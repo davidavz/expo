@@ -40,6 +40,8 @@ class KotlinExpoModulesCorePlugin implements Plugin<Project> {
   }
 }
 
+int KOTLIN_MAJOR_VERSION = kotlinVersion instanceof String ? kotlinVersion.split("\\.")[0].toInteger() : -1
+
 ext.applyKotlinExpoModulesCorePlugin = {
   try {
     // Tries to apply the kotlin-android plugin if the client project does not apply yet.
@@ -47,10 +49,11 @@ ext.applyKotlinExpoModulesCorePlugin = {
     // We cannot use `project.plugins.hasPlugin()` yet but only to try-catch instead.
     apply plugin: 'kotlin-android'
   } catch (e) {}
-
-  try {
-    apply plugin: 'org.jetbrains.kotlin.plugin.compose'
-  } catch (e) {}
+  if(KOTLIN_MAJOR_VERSION >= 2) {
+    try {
+      apply plugin: 'org.jetbrains.kotlin.plugin.compose'
+    } catch (e) {}
+  }
 
   apply plugin: KotlinExpoModulesCorePlugin
 }

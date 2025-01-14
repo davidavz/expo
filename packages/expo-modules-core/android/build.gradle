@@ -58,16 +58,19 @@ def isNewArchitectureEnabled = findProperty("newArchEnabled") == "true"
 
 def shouldTurnWarningsIntoErrors = findProperty("EXPO_TURN_WARNINGS_INTO_ERRORS") == "true"
 
+def KOTLIN_MAJOR_VERSION = kotlinVersion().split("\\.")[0].toInteger()
+
 android {
-  buildscript {
-    repositories {
-      mavenCentral()
-    }
-    dependencies {
-      classpath "org.jetbrains.kotlin.plugin.compose:${kotlinVersion()}"
+  if(KOTLIN_MAJOR_VERSION >= 2) {
+    buildscript {
+      repositories {
+        mavenCentral()
+      }
+      dependencies {
+        classpath "org.jetbrains.kotlin.plugin.compose:${kotlinVersion()}"
+      }
     }
   }
-
   if (rootProject.hasProperty("ndkPath")) {
     ndkPath rootProject.ext.ndkPath
   }
